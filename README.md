@@ -3,6 +3,7 @@
 ### It's just for *fun* :blush:
 #
 # Installation 
+- ```$ install aria2c```
 - ```$ git clone https://github.com/mostafaasadi/mdl```
 - ```$ cd mdl```
 - ```$ chmod +x mdl.sh```
