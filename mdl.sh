@@ -35,15 +35,12 @@ echo  -e " \e[93mWellcome to \e[1m\e[97m\e[44m MDL \e[1m\e[92m\e[49m\n"
 # download function , it use wget and  returns informations about status of download .
 function_wget (){
   echo -e "\t\e[37mDownload started "
-  notify-send "Download started"
-  wget -P "$HOME/$1" "$2"
+  aria2c -s 16 -x 16 -k 1M -d "$HOME/$1" $link
   case "$?" in
     "0")
-    notify-send "Download completed"
     echo -e "\t\e[32mDownload completed"
     ;;
     *)
-    notify-send "Error"
     echo -e "\t\e[31mError! Download not completed"
   esac
 }
@@ -57,7 +54,7 @@ function_stop (){
   	sigma_date=$((date_h * 60 + date_m))
   done
     echo -e "\nThe end time ! mdl stoped "
-    killall wget
+    killall aria2c
     exit
 }
 
@@ -70,7 +67,6 @@ function_dl1 (){
   sigma_date_end=$(($5 * 60 + $6))
 
   echo -e "\tDownload will be start on $2:$3 and stop on $5:$6 and will be save in home/$4 \n\t \e[97m \e[41mplease don't kill MDL!\e[0m"
-  notify-send "Download will be start"
 
   while [ "$sigma_date" != "$sigma_date_input_f" ];do
   	sleep 40
@@ -92,7 +88,6 @@ function_dl2 (){
   sigma_date_end=$(($ehour * 60 + $eminute))
 
   echo -e "\tDownload will be start on $hour:$minute and stop on $ehour:$eminute and will be save in home/$dir \n\t \e[97m \e[41mplease don't kill MDL!\e[0m"
-  notify-send "Download will be start"
 
   while [ "$sigma_date" != "$sigma_date_input" ];do
   	sleep 40
@@ -128,6 +123,5 @@ fi
 if ! [ -z $1 ];then
   function_dl1 $1 $2 $3 $4 $5 $6
 fi
-
   function_dl2
 exit
