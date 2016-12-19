@@ -39,6 +39,7 @@ function_wget (){
   case "$?" in
     "0")
     echo -e "\t\e[32mDownload completed"
+    exit
     ;;
     *)
     echo -e "\t\e[31mError! Download not completed"
