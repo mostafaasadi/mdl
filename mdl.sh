@@ -32,6 +32,14 @@ clear
 # wellcome message
 echo  -e " \e[93mWellcome to \e[1m\e[97m\e[44m MDL \e[1m\e[92m\e[49m\n"
 
+check_internet(){
+  state=`ping -c 2 4.2.2.4`
+  if [ "$?" != 0 ];then
+    notify-send "Error in connection to the internet!"
+    exit
+  fi
+}
+
 # download function , it use wget and  returns informations about status of download .
 function_wget (){
   echo -e "\t\e[37mDownload started "
@@ -100,6 +108,8 @@ function_dl2 (){
 
 }
 
+chack_internet
+
 # this ifs check inpute arguments .
 if [ -z "$1" ];then
   read -p "  please Enter link : " link
@@ -124,5 +134,5 @@ fi
 if ! [ -z $1 ];then
   function_dl1 $1 $2 $3 $4 $5 $6
 fi
-  function_dl2
+function_dl2
 exit
